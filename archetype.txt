@@ -1,0 +1,5 @@
+mvn archetype:generate -DgroupId=edu.escuelaing.arep -DartifactId=EciSpringboot -DarchetypeArtifactId=maven-archetype-quickstart
+
+java -cp "./target/class" edu.escuelaing.arep.reflectionsexamples.InvokeMain edu.escuelaing.arep.reflectionsexamples.ReflectionExample
+
+mvn exec:java -Dexec.mainClass="edu.escuelaing.arep.reflectionsexamples.InvokeMain" -Dexec.args="edu.escuelaing.arep.reflectionsexamples.ReflectionExample"
