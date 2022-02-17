@@ -54,8 +54,9 @@ public class ECISpringBoot {
 
     public String invokeService(String serviceName) {
         // buscar que el servicio exista en mis metodos
-        Method serviceMethod = services.get(serviceName);
         try {
+            if( !services.containsKey(serviceName)) serviceName = "notFound";
+            Method serviceMethod = services.get(serviceName);
             return (String) serviceMethod.invoke(null);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
