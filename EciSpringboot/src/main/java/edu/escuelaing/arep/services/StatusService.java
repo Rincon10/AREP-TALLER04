@@ -1,9 +1,8 @@
-package edu.escuelaing.arep.status;
+package edu.escuelaing.arep.services;
 
 import edu.escuelaing.arep.annotation.Component;
-import edu.escuelaing.arep.annotation.Service;
-
-import java.util.Date;
+import edu.escuelaing.arep.annotation.RequestMapping;
+//import edu.escuelaing.arep.annotation.Service;
 
 /**
  * @author Iván Camilo Rincón Saavedra
@@ -13,7 +12,7 @@ import java.util.Date;
 @Component
 public class StatusService {
 
-    @Service("status")
+    @RequestMapping("status")
     public static String status() {
         return "HTTP/1.1 200 OK\r\n"
                 + "Content-Type: text/html\r\n"
@@ -25,29 +24,17 @@ public class StatusService {
                 + "<title>Title of the document</title>\n"
                 + "</head>"
                 + "<body>"
-                + "Service Status Ok"
+                + "<div>"
+                + "<h1>Service Status</h1>"
+                + "</div>"
+                + "<p>"
+                + " Ok"
+                + "</p>"
                 + "</body>"
                 + "</html>";
     }
 
-    @Service("date")
-    public static String date() {
-        return "HTTP/1.1 200 OK\r\n"
-                + "Content-Type: text/html\r\n"
-                + "\r\n"
-                + "<!DOCTYPE html>"
-                + "<html>"
-                + "<head>"
-                + "<meta charset=\"UTF-8\">"
-                + "<title>Date</title>\n"
-                + "</head>"
-                + "<body>"
-                + new Date().toString()
-                + "</body>"
-                + "</html>";
-    }
-
-    @Service("notFound")
+    @RequestMapping("notFound")
     public static String notFound() {
         return "HTTP/1.1 200 OK\r\n"
                 + "Content-Type: text/html\r\n"
@@ -59,7 +46,13 @@ public class StatusService {
                 + "<title>Not found</title>\n"
                 + "</head>"
                 + "<body>"
-                + "404 Error"
+                + "<div>"
+                + "<h1>404 Error</h1>"
+                + "</div>"
+                + "<h2>Oops! This Page Could Not Be Found</h2>"
+                + "<p>"
+                + "Sorry but the page you are looking for does not exist or have been removed. name changed or is temporarily unavailable"
+                + "</p>"
                 + "</body>"
                 + "</html>";
     }

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,21 +28,23 @@ public class ECISpringBoot {
     /**
      * Constructor of the SprintApplication, that set the default path to search all the annotations
      */
-    private ECISpringBoot(){
-        String packageName = ECISpringBoot.class.getPackageName().replace(".","/");
-        this.pathToSearch = new File(DEFAULT_PATH+packageName);
+    private ECISpringBoot() {
+        String packageName = ECISpringBoot.class.getPackageName().replace(".", "/");
+        this.pathToSearch = new File(DEFAULT_PATH + packageName);
     }
 
     /**
      * Constructor of the SprintApplication, that set a specific path to search all the annotations
+     *
      * @param pathToSearch, File that represents the default path to search all the Springboot annotations
      */
-    private ECISpringBoot( File pathToSearch ) {
+    private ECISpringBoot(File pathToSearch) {
         this.pathToSearch = pathToSearch;
     }
 
     /**
      * Method that return the only instance created of our framework
+     *
      * @return ECISpringBoot, Returns the unique instance created of our framework.
      */
     public static ECISpringBoot getInstance() {
@@ -52,7 +55,7 @@ public class ECISpringBoot {
      * Method that load all the components with different annotations
      */
     private void loadComponents() {
-        List<String> searchComponentList = searchComponentList( pathToSearch);
+        List<String> searchComponentList = searchComponentList(pathToSearch);
 
         //Loading all the methods that have the @component
         searchComponentList.forEach(componentName -> {
@@ -68,12 +71,12 @@ public class ECISpringBoot {
             //loading methods of the class
             Method[] declaredMethods = c.getDeclaredMethods();
             for (Method method : declaredMethods) {
-                if (method.isAnnotationPresent(Service.class)) {
-                    //annotation = @Service("data")
-                    Service annotation = method.getAnnotation(Service.class);
-                    services.put(annotation.value(), method);
-                }
-                else if(method.isAnnotationPresent(RequestMapping.class)){
+//                if (method.isAnnotationPresent(Service.class)) {
+//                    //annotation = @Service("data")
+//                    Service annotation = method.getAnnotation(Service.class);
+//                    services.put(annotation.value(), method);
+//                }
+                if (method.isAnnotationPresent(RequestMapping.class)) {
                     RequestMapping annotation = method.getAnnotation(RequestMapping.class);
                     services.put(annotation.value(), method);
                 }
@@ -83,19 +86,18 @@ public class ECISpringBoot {
         }
     }
 
-    private String transFormPath( String path ){
-        return path.replace(".java", "").replace("\\",".").replace("..src.main.java.","");
+    private String transFormPath(String path) {
+        return path.replace(".java", "").replace("\\", ".").replace("..src.main.java.", "");
     }
 
     private List<String> searchComponentList(File file) {
         List<String> componentList = new ArrayList();
-        if( file.isDirectory()){
-            for( File source : file.listFiles()){
-                componentList.addAll( searchComponentList(source));
+        if (file.isDirectory()) {
+            for (File source : file.listFiles()) {
+                componentList.addAll(searchComponentList(source));
             }
-        }
-        else{
-            if( file.getName().endsWith("java") ){
+        } else {
+            if (file.getName().endsWith("java")) {
                 String path = transFormPath(file.getPath());
                 Class c = null;
                 try {
@@ -103,7 +105,7 @@ public class ECISpringBoot {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                if (c.isAnnotationPresent(Component.class) ){
+                if (c.isAnnotationPresent(Component.class)) {
                     componentList.add(path);
                 }
             }
@@ -129,7 +131,11 @@ public class ECISpringBoot {
         loadComponents();
         HttpServer server = new HttpServer();
         try {
-            server.start();
+            try {
+                server.start();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

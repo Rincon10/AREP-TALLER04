@@ -1,4 +1,4 @@
-package edu.escuelaing.arep.controllers;
+package edu.escuelaing.arep.services;
 
 import edu.escuelaing.arep.annotation.Component;
 import edu.escuelaing.arep.annotation.RequestMapping;
@@ -11,9 +11,9 @@ import java.util.Date;
  * @project EciSpringboot
  */
 @Component
-public class HelloController {
-    @RequestMapping("hello")
-    public static String index() {
+public class DateService {
+    @RequestMapping("date")
+    public static String date() {
         return "HTTP/1.1 200 OK\r\n"
                 + "Content-Type: text/html\r\n"
                 + "\r\n"
@@ -21,13 +21,13 @@ public class HelloController {
                 + "<html>"
                 + "<head>"
                 + "<meta charset=\"UTF-8\">"
-                + "<title>Hello</title>\n"
+                + "<title>Date</title>\n"
                 + "</head>"
                 + "<body>"
-                + "<h1>Hello</h1>"
+                + "<h1>Current Date</h1>"
                 + "</div>"
                 + "<p>"
-                +"Greetings from Spring Boot!"
+                + new Date().toString()
                 + "</p>"
                 + "</body>"
                 + "</html>";
