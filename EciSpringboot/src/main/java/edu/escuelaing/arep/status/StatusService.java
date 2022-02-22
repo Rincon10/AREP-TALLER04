@@ -1,5 +1,6 @@
 package edu.escuelaing.arep.status;
 
+import edu.escuelaing.arep.annotation.Component;
 import edu.escuelaing.arep.annotation.Service;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
  * @version 1.0 2/16/2022
  * @project EciSpringboot
  */
+@Component
 public class StatusService {
 
     @Service("status")
