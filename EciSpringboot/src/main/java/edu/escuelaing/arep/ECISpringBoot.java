@@ -29,7 +29,8 @@ public class ECISpringBoot {
      * Constructor of the SprintApplication, that set the default path to search all the annotations
      */
     private ECISpringBoot() {
-        String packageName = ECISpringBoot.class.getPackageName().replace(".", "/");
+        String packageName;
+        packageName = ECISpringBoot.class.getPackage().getName().replace(".", "/");
         this.pathToSearch = new File(DEFAULT_PATH + packageName);
     }
 
