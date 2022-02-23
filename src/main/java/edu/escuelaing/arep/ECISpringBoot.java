@@ -32,7 +32,7 @@ public class ECISpringBoot {
         String packageName;
         packageName = ECISpringBoot.class.getPackage().getName().replace(".", "/");
         //DEFAULT_PATH + packageName
-        this.pathToSearch = new File( DEFAULT_PATH+packageName);
+        this.pathToSearch = new File(DEFAULT_PATH + packageName);
     }
 
     /**
@@ -60,9 +60,12 @@ public class ECISpringBoot {
         List<String> searchComponentList = searchComponentList(pathToSearch);
 
         //Loading all the methods that have the @component
-        searchComponentList.forEach(componentName -> {
-            loadServices(componentName);
-        });
+        if (searchComponentList != null) {
+            searchComponentList.forEach(componentName -> {
+                loadServices(componentName);
+            });
+        }
+
     }
 
     /**
