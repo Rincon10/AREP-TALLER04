@@ -31,7 +31,8 @@ public class ECISpringBoot {
     private ECISpringBoot() {
         String packageName;
         packageName = ECISpringBoot.class.getPackage().getName().replace(".", "/");
-        this.pathToSearch = new File(DEFAULT_PATH + packageName);
+        //DEFAULT_PATH + packageName
+        this.pathToSearch = new File( DEFAULT_PATH+packageName);
     }
 
     /**
