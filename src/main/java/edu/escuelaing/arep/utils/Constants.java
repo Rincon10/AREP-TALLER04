@@ -6,7 +6,7 @@ package edu.escuelaing.arep.utils;
  * @project EciSpringboot
  */
 public class Constants {
-    public final static String DEFAULT_PATH="./target/classes/";
+    public final static String DEFAULT_PATH="./src/main/java/";
 
     public final static String[][] TYPES = {
             {"html", "text/html"},
