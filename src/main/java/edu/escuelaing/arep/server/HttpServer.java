@@ -67,10 +67,10 @@ public class HttpServer {
                 + "<html>"
                 + "<head>"
                 + "<meta charset=\"UTF-8\">"
-                + "<title>Title of the document</title>\n"
+                + "<title>Default Page</title>\n"
                 + "</head>"
                 + "<body>"
-                + "My Web Site HOLIUIIIIIIII"
+                + "<h1>Default Page</h1>"
                 + "</body>"
                 + "</html>";
     }
