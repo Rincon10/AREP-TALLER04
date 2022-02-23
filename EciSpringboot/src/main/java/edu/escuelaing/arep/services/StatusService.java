@@ -8,10 +8,15 @@ import edu.escuelaing.arep.annotation.RequestMapping;
  * @author Iván Camilo Rincón Saavedra
  * @version 1.0 2/16/2022
  * @project EciSpringboot
+ * Class that offer a services related with possibles status
  */
 @Component
 public class StatusService {
-
+    /**
+     * Method that return a html page with information of a specific status
+     *
+     * @return String, that represents a html page with information of a specific status
+     */
     @RequestMapping("status")
     public static String status() {
         return "HTTP/1.1 200 OK\r\n"

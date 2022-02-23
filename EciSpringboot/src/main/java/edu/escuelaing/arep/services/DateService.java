@@ -9,9 +9,15 @@ import java.util.Date;
  * @author Iván Camilo Rincón Saavedra
  * @version 1.0 2/22/2022
  * @project EciSpringboot
+ * Class that offer a services related with dates
  */
 @Component
 public class DateService {
+    /**
+     * Method that return a html page with information of the current date
+     *
+     * @return String, html page with the current date
+     */
     @RequestMapping("date")
     public static String date() {
         return "HTTP/1.1 200 OK\r\n"

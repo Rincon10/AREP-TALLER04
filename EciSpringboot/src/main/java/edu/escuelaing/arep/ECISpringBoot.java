@@ -2,7 +2,7 @@ package edu.escuelaing.arep;
 
 import edu.escuelaing.arep.annotation.Component;
 import edu.escuelaing.arep.annotation.RequestMapping;
-import edu.escuelaing.arep.annotation.Service;
+//import edu.escuelaing.arep.annotation.Service;
 import edu.escuelaing.arep.server.HttpServer;
 
 import java.io.File;
@@ -53,7 +53,7 @@ public class ECISpringBoot {
     }
 
     /**
-     * Method that load all the components with different annotations
+     * Method that load all the components with the @componnet annotation
      */
     private void loadComponents() {
         List<String> searchComponentList = searchComponentList(pathToSearch);
@@ -64,7 +64,11 @@ public class ECISpringBoot {
         });
     }
 
-
+    /**
+     * Method that save all the methods in our hashmap of a specific class
+     *
+     * @param componentName, className of the component with a @Component annotation
+     */
     private void loadServices(String componentName) {
         try {
             Class c = Class.forName(componentName);
@@ -87,10 +91,22 @@ public class ECISpringBoot {
         }
     }
 
+    /**
+     * Method that transform path format to a class-path format
+     *
+     * @param path, current path to transform to class-path format
+     * @return String, class-path format of the path
+     */
     private String transFormPath(String path) {
         return path.replace(".java", "").replace("\\", ".").replace("..src.main.java.", "");
     }
 
+    /**
+     * Method that Seacrch all the components with @Component annotation in a specific seed path
+     *
+     * @param file, File with a seed path from which to start the search
+     * @return List<String>, List of the name of all components with @Component annotation
+     */
     private List<String> searchComponentList(File file) {
         List<String> componentList = new ArrayList();
         if (file.isDirectory()) {
@@ -114,6 +130,12 @@ public class ECISpringBoot {
         return componentList;
     }
 
+    /**
+     * Method that invoke a specific method from a class
+     *
+     * @param serviceName, String that represents the name service stored on our Framework
+     * @return String, That represents the execution of the method
+     */
     public String invokeService(String serviceName) {
         // buscar que el servicio exista en mis metodos
         try {
@@ -128,6 +150,9 @@ public class ECISpringBoot {
         return "Service error";
     }
 
+    /**
+     * Run server method
+     */
     public void startServer() {
         loadComponents();
         HttpServer server = new HttpServer();

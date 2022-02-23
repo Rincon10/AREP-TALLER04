@@ -1,11 +1,5 @@
 package edu.escuelaing.arep.server;
 
-/**
- * @author Iván Camilo Rincón Saavedra
- * @version 1.0 2/16/2022
- * @project EciSpringboot
- */
-
 import edu.escuelaing.arep.ECISpringBoot;
 
 import java.io.*;
@@ -19,6 +13,12 @@ import java.util.Map;
 
 import static edu.escuelaing.arep.utils.Constants.TYPES;
 
+/**
+ * @author Iván Camilo Rincón Saavedra
+ * @version 1.0 2/16/2022
+ * @project EciSpringboot
+ * Class that represents the server that gonna manage the different connection between the server and a client
+ */
 public class HttpServer {
     private ServerSocket serverSocket;
     private Socket clientSocket;
@@ -33,12 +33,20 @@ public class HttpServer {
         setTypes();
     }
 
+    /**
+     * Method that prepares all possible types of a file
+     */
     private void setTypes() {
         for (String[] type : TYPES) {
             typesMap.put(type[0], type[1]);
         }
     }
 
+    /**
+     * Method that return the port number that gonna be used by the connection
+     *
+     * @return int, port number
+     */
     private static int getPort() {
         if (System.getenv("PORT") != null) {
             return Integer.parseInt(System.getenv("PORT"));
@@ -46,6 +54,11 @@ public class HttpServer {
         return 35000;
     }
 
+    /**
+     * Method that return a default html page
+     *
+     * @return String, that represents the html page
+     */
     private String getDefaultHTML() {
         return "HTTP/1.1 200 OK\r\n"
                 + "Content-Type: text/html\r\n"
@@ -62,11 +75,24 @@ public class HttpServer {
                 + "</html>";
     }
 
+    /**
+     * Method that establish a connection with a specific socket client
+     *
+     * @param clientSocket, client socket with who gonna establish a connection
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public void serverConnection(Socket clientSocket) throws IOException, URISyntaxException {
         this.clientSocket = clientSocket;
         serverConnection();
     }
 
+    /**
+     * Method that establish a connection between client and server
+     *
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public void serverConnection() throws IOException, URISyntaxException {
         outputStream = clientSocket.getOutputStream();
         out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -90,11 +116,9 @@ public class HttpServer {
         resourceURI = new URI(file);
         if (file.startsWith("/Services/")) {
             outputLine = invokeService(file.replace("/Services/", ""));
-        }
-        else if (file.startsWith("/public/")) {
+        } else if (file.startsWith("/public/")) {
             outputLine = invokeService(file.replace("/public/", ""));
-        }
-        else if (file.length() == 1) {
+        } else if (file.length() == 1) {
             outputLine = getDefaultHTML();
         } else {
             String[] controller = file.split("/");
@@ -103,7 +127,12 @@ public class HttpServer {
         out.println(outputLine);
     }
 
-
+    /**
+     * Method that start running the HttpServer
+     *
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public void start() throws IOException, URISyntaxException {
         serverSocket = null;
         try {
@@ -126,15 +155,30 @@ public class HttpServer {
         serverSocket.close();
     }
 
+    /**
+     * Method that told us uf the petition is requesting an image
+     *
+     * @param extensionUri, String that represents a file extension
+     * @return boolean, that says if the extension is an image
+     */
     private static boolean isAnImage(String extensionUri) {
         return extensionUri.equals("png") || extensionUri.equals("jpg") || extensionUri.equals("jpge");
     }
 
+    /**
+     * Method that invoke a specific method from a class
+     *
+     * @param file, String that represents the name service stored on our Framework
+     * @return String, That represents the execution of the method
+     */
     private String invokeService(String file) {
         return ECISpringBoot.getInstance().invokeService(file);
-
     }
 
+    /**
+     * Method that close the connection between the client and the server
+     * @throws IOException
+     */
     public void closeConnection() throws IOException {
         out.close();
         in.close();

@@ -3,8 +3,6 @@ package edu.escuelaing.arep.controllers;
 import edu.escuelaing.arep.annotation.Component;
 import edu.escuelaing.arep.annotation.RequestMapping;
 
-import java.util.Date;
-
 /**
  * @author Iván Camilo Rincón Saavedra
  * @version 1.0 2/22/2022
@@ -27,7 +25,7 @@ public class HelloController {
                 + "<h1>Hello</h1>"
                 + "</div>"
                 + "<p>"
-                +"Greetings from Spring Boot!"
+                + "Greetings from Spring Boot!"
                 + "</p>"
                 + "</body>"
                 + "</html>";

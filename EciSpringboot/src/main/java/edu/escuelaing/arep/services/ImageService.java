@@ -18,10 +18,17 @@ import static edu.escuelaing.arep.utils.Constants.RESOURCES_PATH;
  * @author Iván Camilo Rincón Saavedra
  * @version 1.0 2/22/2022
  * @project EciSpringboot
+ * Class that offer a services related with images
  */
 @Component
 public class ImageService {
 
+    /**
+     * Method that return a image
+     *
+     * @return String, default image loaded by the framework
+     * @throws URISyntaxException, in case the given uri is not correct
+     */
     @RequestMapping("image")
     public static String computeImage() throws URISyntaxException {
         String responseContent;
